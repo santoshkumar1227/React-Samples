@@ -117,7 +117,8 @@ export default class AddStudent extends Component {
     componentWillMount() {
         const { navigation } = this.props;
         const studentToEdit = navigation.getParam('student', null);
-        if (studentToEdit != null)
+        if (studentToEdit != null) {
+            selectedIndex = radio_props.findIndex(e => e.value == studentToEdit.stGender);
             this.setState({
                 name: studentToEdit.stName,
                 phoneno: studentToEdit.stPhone,
@@ -125,8 +126,10 @@ export default class AddStudent extends Component {
                 gender: studentToEdit.stGender,
                 email: studentToEdit.stRefEmail,
                 randomId: studentToEdit.studentId,
-                date_in:studentToEdit.stDOJ
+                date_in: studentToEdit.stDOJ,
+                radio_props: radio_props[selectedIndex].selected = true
             });
+        }
     }
 
 
@@ -376,7 +379,7 @@ export default class AddStudent extends Component {
 
                             <TextInput
                                 style={{ color: GlobalColors.black.default }}
-                                placeholder={GlobalStrings.doj}
+                                placeholder={GlobalStrings.dob}
                                 value={this.state.date_in}
                                 editable={false}
                                 selectTextOnFocus={false}></TextInput>

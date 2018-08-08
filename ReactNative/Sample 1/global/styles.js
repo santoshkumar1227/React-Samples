@@ -89,15 +89,20 @@ export default GlobalStyles = {
     //     textAlign: 'center',
     //     fontSize: 16
     // },
+    floatingParent: {
+        flex: 1,
+        flexDirection: 'row',
+        position: 'absolute',
+        bottom: 10,
+        right: 10,
+    },
     floatingActionButton: {
+        height: 40,
         borderWidth: 1,
         borderColor: 'transparent',
         alignItems: 'center',
         justifyContent: 'center',
         width: 50,
-        position: 'absolute',
-        bottom: 10,
-        right: 10,
         height: 50,
         backgroundColor: GlobalColors.blue.light,
         borderRadius: 100,

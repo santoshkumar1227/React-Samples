@@ -75,7 +75,7 @@ export default class AllStudents extends Component {
 
   renderItem({ item, index }) {
     return (
-      <View style={{ borderRadius: 5, paddingBottom: 10, margin: 10, backgroundColor: 'gray', marginTop: 50, }}>
+      <View style={{ borderRadius: 5, margin: 10, padding: 5, paddingBottom: 15, backgroundColor: 'gray' }}>
 
         <Text style={GlobalStyles.itemCenter}>{item.stName} ({item.stClass}) - {item.stGender}</Text>
 
@@ -84,6 +84,7 @@ export default class AllStudents extends Component {
         <Text style={GlobalStyles.item}>{item.stRefEmail}</Text>
 
         <Text style={GlobalStyles.item}>Date of Join : {item.stDOJ}</Text>
+
         <View
           style={GlobalStyles.rightImageButton}
         >
@@ -120,6 +121,20 @@ export default class AllStudents extends Component {
 
   ItemSeparatorComponent = () => {
     return null //<View style={{ height: 1, backgroundColor: GlobalColors.blue.dark }}></View>
+  }
+
+  listHeaderComponent = () => {
+    return (
+      <View style={{
+        margin: 10, padding: 10, justifyContent: 'center',
+        alignItems: 'center',
+        alignContent: 'center',
+        borderRadius: 5, backgroundColor: 'gray'
+      }}>
+        <Text style={{ fontSize: 16, fontWeight: 'bold', textAlign: 'center', color: GlobalColors.white.default }}>
+          Total Students are : {this.state.students.length}
+        </Text>
+      </View>);
   }
 
   _onRefresh = () => {
@@ -228,22 +243,30 @@ export default class AllStudents extends Component {
           //   <View style={{ height: 3, backgroundColor: GlobalColors.blue.dark }}></View>
           // }
           ItemSeparatorComponent={this.ItemSeparatorComponent}
+          ListHeaderComponent={this.listHeaderComponent}
         />
 
-        <TouchableOpacity
-          activeOpacity={0.5}
-          onPress={() => this.props.navigation.navigate('AddStudent')}
-          style={GlobalStyles.floatingActionButton}
-        >
-          <Icon name="plus" size={18}
-            color={GlobalColors.white.default} />
+        <View style={GlobalStyles.floatingParent}>
+          <TouchableOpacity
+            style={GlobalStyles.floatingActionButton}
+            activeOpacity={0.5}
+            onPress={() => this.props.navigation.navigate('AddStudent')}>
 
-          {/* <Image
-            style={{ height: 15, width: 15 }}
-            resizeMode='contain'
-            source={require('../images/delete.png')}/> */}
+            <Icon name="plus" size={18}
+              color={GlobalColors.white.default} />
 
-        </TouchableOpacity>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={GlobalStyles.floatingActionButton}
+            activeOpacity={0.5}
+            onPress={() => this.props.navigation.navigate('AddStudent')}>
+
+            <Icon name="plus" size={18}
+              color={GlobalColors.white.default} />
+          </TouchableOpacity>
+
+        </View>
 
         <CustomActivityIndicator showIndicator={this.state.showIndicator}></CustomActivityIndicator>
 

@@ -6,9 +6,10 @@ import GlobalStrings from '../global/strings'
 import GlobalColors from '../global/colors'
 import realm from '../database/allSchemas'
 import { insertNewstudent, updateStudent, STUDENT_SCHEMA } from '../database/allSchemas'
-import { validateEmail, validatePhone, isAndroid } from '../components/commons/Commons'
-import CustomActivityIndicator from '../components/commons/CustomActivityIndicator'
+import { validateEmail, validatePhone, isAndroid } from './commons/Commons'
+import CustomActivityIndicator from './commons/CustomActivityIndicator'
 import DatePicker from 'react-native-datepicker'
+import CustomRadioGroup from '../components/commons/CustomRadioGroup';
 
 var ImagePicker = require('react-native-image-picker');
 // More info on all the options is below in the README...just some common use cases shown here
@@ -22,6 +23,11 @@ var options = {
         path: 'images'
     }
 };
+
+var radio_props = [
+    { label: 'Male', value: 'Male', disabled: false },
+    { label: 'Female', value: 'Female', disabled: false }
+]
 
 export default class AddStudent extends Component {
 
@@ -72,6 +78,7 @@ export default class AddStudent extends Component {
             avatarSource: null,
             showIndicator: false,
             date_in: null,
+
         }
     }
 
@@ -107,19 +114,20 @@ export default class AddStudent extends Component {
         });
     }
 
-    // componentWillMount() {
-    //     const { navigation } = this.props;
-    //     const studentToEdit = navigation.getParam('student', null);
-    //     if (studentToEdit != null)
-    //         this.setState({
-    //             name: studentToEdit.stName,
-    //             phoneno: studentToEdit.stPhone,
-    //             className: studentToEdit.stClass,
-    //             gender: studentToEdit.stGender,
-    //             email: studentToEdit.stRefEmail,
-    //             randomId: studentToEdit.studentId
-    //         });
-    // }
+    componentWillMount() {
+        const { navigation } = this.props;
+        const studentToEdit = navigation.getParam('student', null);
+        if (studentToEdit != null)
+            this.setState({
+                name: studentToEdit.stName,
+                phoneno: studentToEdit.stPhone,
+                className: studentToEdit.stClass,
+                gender: studentToEdit.stGender,
+                email: studentToEdit.stRefEmail,
+                randomId: studentToEdit.studentId,
+                date_in:studentToEdit.stDOJ
+            });
+    }
 
 
     addStudent = () => {
@@ -128,72 +136,76 @@ export default class AddStudent extends Component {
             if (this.state.phoneno != null && this.state.phoneno != "" && validatePhone(this.state.phoneno)) {
                 if (this.state.className != null && this.state.className != "") {
                     if (this.state.email != null && this.state.email != "" && validateEmail(this.state.email)) {
-                        if (this.state.gender != null && this.state.gender != "nope" && this.state.gender != "") {
-                            console.log('====================================');
-                            console.log(this.state.gender);
-                            console.log('====================================');
-                            //  Alert.alert("Adding..", "Successful");
-                            const student = {
-                                studentId: this.state.randomId,
-                                stName: this.state.name,
-                                stPhone: this.state.phoneno,
-                                stClass: this.state.className,
-                                stRefEmail: this.state.email,
-                                stGender: this.state.gender,
-                                stDOJ: this.state.date_in
-                            }
+                        if (this.state.date_in != null && this.state.date_in != "") {
+                            if (this.state.gender != null && this.state.gender != "") {
+                                console.log('====================================');
+                                console.log(this.state.gender);
+                                console.log('====================================');
+                                //  Alert.alert("Adding..", "Successful");
+                                const student = {
+                                    studentId: this.state.randomId,
+                                    stName: this.state.name,
+                                    stPhone: this.state.phoneno,
+                                    stClass: this.state.className,
+                                    stRefEmail: this.state.email,
+                                    stGender: this.state.gender,
+                                    stDOJ: this.state.date_in
+                                }
 
-                            this.setState({
-                                showIndicator: true
-                            });
-
-                            const { navigation } = this.props;
-                            const status = navigation.getParam('status', null);
-
-                            if (status != null && status == 'edit') {
-                                updateStudent(student).then(() => {
-                                    Alert.alert("", GlobalStrings.studentUpdatesuccess);
-                                    this.setState({
-                                        randomId: this.state.randomId + 1,
-                                        name: '',
-                                        phoneno: '',
-                                        className: '',
-                                        gender: '',
-                                        email: '',
-                                        showIndicator: false
-                                    });
-
-                                }).catch((error) => {
-                                    this.setState({
-                                        showIndicator: false
-                                    });
-                                    alert(`Student Updation Error :  ${error}`);
+                                this.setState({
+                                    showIndicator: true
                                 });
+
+                                const { navigation } = this.props;
+                                const status = navigation.getParam('status', null);
+
+                                if (status != null && status == 'edit') {
+                                    updateStudent(student).then(() => {
+                                        Alert.alert("", GlobalStrings.studentUpdatesuccess);
+                                        this.setState({
+                                            randomId: this.state.randomId + 1,
+                                            name: '',
+                                            phoneno: '',
+                                            className: '',
+                                            gender: '',
+                                            email: '',
+                                            showIndicator: false
+                                        });
+
+                                    }).catch((error) => {
+                                        this.setState({
+                                            showIndicator: false
+                                        });
+                                        alert(`Student Updation Error :  ${error}`);
+                                    });
+                                } else {
+                                    insertNewstudent(student).then(() => {
+                                        Alert.alert("", GlobalStrings.studentAddedsuccess);
+                                        this.setState({
+                                            randomId: this.state.randomId + 1,
+                                            name: '',
+                                            phoneno: '',
+                                            className: '',
+                                            gender: '',
+                                            email: '',
+                                            showIndicator: false
+                                        });
+
+                                    }).catch((error) => {
+                                        this.setState({
+                                            showIndicator: false
+                                        });
+                                        alert(`Student Insertion Error : ${error}`);
+                                    });
+                                }
+
+                                this.props.navigation.navigate("AllStudents");
+
                             } else {
-                                insertNewstudent(student).then(() => {
-                                    Alert.alert("", GlobalStrings.studentAddedsuccess);
-                                    this.setState({
-                                        randomId: this.state.randomId + 1,
-                                        name: '',
-                                        phoneno: '',
-                                        className: '',
-                                        gender: '',
-                                        email: '',
-                                        showIndicator: false
-                                    });
-
-                                }).catch((error) => {
-                                    this.setState({
-                                        showIndicator: false
-                                    });
-                                    alert(`Student Insertion Error : ${error}`);
-                                });
+                                validationMessage = GlobalStrings.selectGender;
                             }
-
-                            this.props.navigation.navigate("AllStudents");
-
                         } else {
-                            validationMessage = GlobalStrings.selectGender;
+                            validationMessage = GlobalStrings.selectDate;
                         }
                     } else {
                         validationMessage = GlobalStrings.enterEmail;
@@ -227,7 +239,6 @@ export default class AddStudent extends Component {
     // }
 
     render() {
-
         return (
             <ScrollView style={{ backgroundColor: GlobalColors.white.default }}>
                 <View style={GlobalStyles.container}>
@@ -288,7 +299,7 @@ export default class AddStudent extends Component {
                             }}
                             returnKeyType="next"
                             style={GlobalStyles.textInput}
-                            placeholder={GlobalStrings.enerStudentName}
+                            placeholder={GlobalStrings.name}
                             onChangeText={(name) => this.setState({ name })}
                         />
 
@@ -296,17 +307,17 @@ export default class AddStudent extends Component {
                             ref="phone"
                             value={this.state.phoneno}
                             onSubmitEditing={() => {
-                                this.refs.class.focus();
+                                this.refs.email.focus();
                             }}
                             returnKeyType="next"
                             keyboardType='phone-pad'
                             maxLength={10}
                             style={GlobalStyles.textInput}
-                            placeholder={GlobalStrings.enerStudentPhone}
+                            placeholder={GlobalStrings.phoneNo}
                             onChangeText={(phoneno) => this.setState({ phoneno })}
                         />
 
-                        <TextInput
+                        {/* <TextInput
                             ref="class"
                             value={this.state.className}
                             onSubmitEditing={() => {
@@ -316,7 +327,34 @@ export default class AddStudent extends Component {
                             style={GlobalStyles.textInput}
                             placeholder={GlobalStrings.enerStudentBranch}
                             onChangeText={(className) => this.setState({ className })}
-                        />
+                        /> */}
+
+                        <View style={{ fontSize: 10, height: 50, borderRadius: 5, margin: 10, justifyContent: 'center', height: 40, width: '80%', borderWidth: 1, borderColor: GlobalColors.black.absolute }}>
+                            <Picker
+                                mode="dropdown"
+                                selectedValue={this.state.className}
+                                style={{
+                                    width: '80%',
+                                    color: GlobalColors.black.default,
+                                    height: 40,
+                                    backgroundColor: 'transparent',
+                                    width: '80%'
+                                }}
+                                onValueChange={(itemValue, itemIndex) => this.setState({ className: itemValue })}>
+                                <Picker.Item label="LKG" value="LKG" />
+                                <Picker.Item label="UKG" value="UKG" />
+                                <Picker.Item label="1st class" value="1st class" />
+                                <Picker.Item label="2nd class" value="2nd class" />
+                                <Picker.Item label="3rd class" value="3rd class" />
+                                <Picker.Item label="4th class" value="4th class" />
+                                <Picker.Item label="5th class" value="5th class" />
+                                <Picker.Item label="6th class" value="6th class" />
+                                <Picker.Item label="7th class" value="7th class" />
+                                <Picker.Item label="8th class" value="8th class" />
+                                <Picker.Item label="9th class" value="9th class" />
+                                <Picker.Item label="10th class" value="10th class" />
+                            </Picker>
+                        </View>
 
                         <TextInput
                             ref="email"
@@ -327,21 +365,9 @@ export default class AddStudent extends Component {
                             keyboardType='email-address'
                             returnKeyType="done"
                             style={GlobalStyles.textInput}
-                            placeholder={GlobalStrings.enterEmail}
+                            placeholder={GlobalStrings.email}
                             onChangeText={(email) => this.setState({ email })}
                         />
-
-                        <View style={{ height: 50, borderRadius: 5, margin: 10, justifyContent: 'center', height: 40, width: '80%', borderWidth: 1, borderColor: GlobalColors.black.absolute }}>
-                            <Picker
-                                mode="dropdown"
-                                selectedValue={this.state.gender}
-                                style={{ width: '80%', height: 40, backgroundColor: 'transparent', width: '80%' }}
-                                onValueChange={(itemValue, itemIndex) => this.setState({ gender: itemValue })}>
-                                <Picker.Item style={{ fontSize: 10 }} label="Select Gender" value="nope" />
-                                <Picker.Item label="Male" value="male" />
-                                <Picker.Item label="Female" value="female" />
-                            </Picker>
-                        </View>
 
                         <TouchableOpacity
                             style={GlobalStyles.textInput}
@@ -350,14 +376,16 @@ export default class AddStudent extends Component {
 
                             <TextInput
                                 style={{ color: GlobalColors.black.default }}
-                                placeholder={GlobalStrings.selectDate}
+                                placeholder={GlobalStrings.doj}
                                 value={this.state.date_in}
                                 editable={false}
                                 selectTextOnFocus={false}></TextInput>
                         </TouchableOpacity>
 
-                        <DatePicker
+
+                        {/* <DatePicker
                             style={{
+                                marginTop: 10,
                                 width: '80%',
                                 borderColor: 'black',
                                 color: 'black',
@@ -390,7 +418,35 @@ export default class AddStudent extends Component {
                                 // ... You can check the source to find the other keys.
                             }}
                             onDateChange={(date) => { this.setState({ date_in: date }) }}
-                        />
+                        /> */}
+
+                        <View
+                            style={
+                                {
+                                    paddingLeft: 10,
+                                    height: 40,
+                                    width: '80%',
+                                    borderRadius: 5,
+                                    borderColor: 'black',
+                                    borderWidth: 1,
+                                    marginTop: 10,
+                                    flexDirection: 'row',
+                                    justifyContent: 'flex-start',
+                                    alignItems: 'center'
+                                }
+                            }
+                        >
+
+                            <Text>{GlobalStrings.gender}</Text>
+                            <CustomRadioGroup
+                                color={GlobalColors.gray.absolute}
+                                bubbleColor='red'
+                                justifyContent='flex-start'
+                                flexDirection='row'
+                                alignItems='left'
+                                radioButtons={radio_props}
+                                onPress={this.onPress} />
+                        </View>
 
                         <TouchableOpacity
                             activeOpacity={0.8}
@@ -406,6 +462,11 @@ export default class AddStudent extends Component {
                 </View>
             </ScrollView>
         )
+    }
+
+    // update state
+    onPress = selectedButton => {
+        this.setState({ gender: selectedButton });
     }
 
     renderDatePickerAndroid = async () => {

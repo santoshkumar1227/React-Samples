@@ -37,4 +37,4 @@ const App = createStackNavigator({
   //Profile: { screen: ProfileScreen },
 });
 
-AppRegistry.registerComponent(appName, () => AllStudents);
+AppRegistry.registerComponent(appName, () => App);

@@ -13,12 +13,21 @@ export default GlobalStrings = {
     enterEmail: "Enter email",
     selectDate: "Select Date",
     login: "Login",
-    enterUserName:"Enter Username",
-    enterPassword:"Enter Password",
-    invalidcredi:"Please enter valid credintials",
-    deleteStudent:"Delete Student",
-    deleteStudentConf:"Do you want to delete",
-    studentDeleteSuccess:"Student Deleted Successfully",
-    studentUpdatesuccess:"Student Updated Successfully",
-    studentAddedsuccess:"Student Added Successfully"
+    enterUserName: "Enter Username",
+    enterPassword: "Enter Password",
+    invalidcredi: "Please enter valid credintials",
+    deleteStudent: "Delete Student",
+    deleteStudentConf: "Do you want to delete",
+    studentDeleteSuccess: "Student Deleted Successfully",
+    studentUpdatesuccess: "Student Updated Successfully",
+    studentAddedsuccess: "Student Added Successfully",
+    selectClass: "Select Class",
+
+    //placeHolders
+    email: "Email",
+    dob: "Date Of Birth",
+    gender: "Gender",
+    class: "Class",
+    phoneNo: "Phone Number",
+    name: "Name"
 }

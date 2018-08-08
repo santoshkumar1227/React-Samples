@@ -43,7 +43,7 @@ export default GlobalStyles = {
         width: '80%',
         borderWidth: 1,
         padding: 5,
-        marginTop: 10,
+        marginTop: 20,
         marginBottom: 50,
         borderRadius: 5,
         backgroundColor: GlobalColors.blue.dark,

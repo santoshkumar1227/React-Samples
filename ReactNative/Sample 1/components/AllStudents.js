@@ -77,7 +77,7 @@ export default class AllStudents extends Component {
     return (
       <View style={{ borderRadius: 5, paddingBottom: 10, margin: 10, backgroundColor: 'gray', marginTop: 50, }}>
 
-        <Text style={GlobalStyles.itemCenter}>{item.stName} ({item.stClass})</Text>
+        <Text style={GlobalStyles.itemCenter}>{item.stName} ({item.stClass}) - {item.stGender}</Text>
 
         <Text style={GlobalStyles.item}>{item.stPhone}</Text>
 
@@ -129,7 +129,7 @@ export default class AllStudents extends Component {
 
   componentWillMount() {
     this.getAllStudents();
-   // Alert.alert("", "componentWillMount");
+    // Alert.alert("", "componentWillMount");
   }
 
   // componentWillUpdate(nextProps, nextState) {

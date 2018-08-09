@@ -115,9 +115,6 @@ export default class AllStudents extends Component {
       </View >);
   }
 
-  logout = () => {
-
-  }
 
   ItemSeparatorComponent = () => {
     return null //<View style={{ height: 1, backgroundColor: GlobalColors.blue.dark }}></View>
@@ -252,18 +249,23 @@ export default class AllStudents extends Component {
             activeOpacity={0.5}
             onPress={() => this.props.navigation.navigate('AddStudent')}>
 
-            <Icon name="plus" size={18}
-              color={GlobalColors.white.default} />
+            {/* <Icon name="plus" size={18}
+              color={GlobalColors.white.default} /> */}
+
+            <Image style={{ height: 25, width: 25 }} source={require('../images/add_student_1.png')} />
 
           </TouchableOpacity>
 
           <TouchableOpacity
             style={GlobalStyles.floatingActionButton}
             activeOpacity={0.5}
-            onPress={() => this.props.navigation.navigate('AddStudent')}>
+            onPress={() => this.props.navigation.navigate('SectionStudents')}>
 
-            <Icon name="plus" size={18}
-              color={GlobalColors.white.default} />
+            {/* <Icon name="plus" size={18}
+              color={GlobalColors.white.default} /> */}
+
+            <Image style={{ height: 25, width: 25 }} source={require('../images/if_group.png')} />
+
           </TouchableOpacity>
 
         </View>
@@ -277,3 +279,4 @@ export default class AllStudents extends Component {
     )
   }
 }
+

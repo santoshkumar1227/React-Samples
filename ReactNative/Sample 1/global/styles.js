@@ -29,6 +29,9 @@ export default GlobalStyles = {
         // placeholderTextColor: GlobalColors.white.whitePlaceHolder,
         backgroundColor: GlobalColors.white.default,
         color: GlobalColors.black.default
+    }, textInputAddress: {
+        height: 100,
+        textAlignVertical: 'top'
     }, textInputPassword: {
         secureTextEntry: true
     },
@@ -70,7 +73,7 @@ export default GlobalStyles = {
         borderRadius: 100 / 2,
         borderWidth: 2,
         borderColor: GlobalColors.black.default,
-        backgroundColor: GlobalColors.cyan.default
+        backgroundColor: GlobalColors.white.default
     }, item: {
         color: GlobalColors.black.default,
         paddingLeft: 10,

@@ -27,17 +27,18 @@ export const StudentSchema = {
         stClass: 'string',
         stRefEmail: 'string',
         stGender: 'string',
-        stDOJ: 'string'
+        stDOJ: 'string',
+        stAddress: 'string'
     }
 };
 
 const databaseOptions = {
     path: 'College.realm',
     schema: [StudentSchema], //Must be an array
-    schemaVersion: 2, //optional  
+    schemaVersion: 3, //optional  
     migration: (oldRealm, newRealm) => {
         // only apply this change if upgrading to schemaVersion 1
-        if (oldRealm.schemaVersion < 2) {
+        if (oldRealm.schemaVersion < 3) {
             const oldObjects = oldRealm.objects(STUDENT_SCHEMA);
             const newObjects = newRealm.objects(STUDENT_SCHEMA);
 
@@ -45,6 +46,7 @@ const databaseOptions = {
             for (let i = 0; i < oldObjects.length; i++) {
                 newObjects[i].stRefEmail = '';
                 newObjects[i].stDOJ = '';
+                newObjects[i].stAddress = '';
             }
         }
     }
@@ -70,6 +72,7 @@ export const updateStudent = student => new Promise((resolve, reject) => {
             updatingStudent.stGender = student.stGender;
             updatingStudent.stRefEmail = student.stRefEmail;
             updateStudent.stDOJ = student.stDOJ;
+            updateStudent.stAddress = student.stAddress;
             resolve();
         });
     }).catch((error) => reject(error));;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Image, StyleSheet, SectionList, TouchableHighlight, Text, View } from 'react-native'
+import { Image, StyleSheet, SectionList, TouchableOpacity, Text, View } from 'react-native'
 import GlobalStyles from '../global/styles'
 import GlobalStrings from '../global/strings'
 import GlobalColors from '../global/colors'
@@ -13,6 +13,18 @@ export default class SectionWiseStudents extends Component {
             headerStyle: {
                 backgroundColor: GlobalColors.blue.light,
             },
+            headerRight: (
+                <TouchableOpacity
+                    activeOpacity={0.8}
+                    style={{ padding: 5 }}
+                    onPress={() =>
+                        navigation.navigate("AddStudent")
+                    }
+                >
+
+                    <Image style={{ height: 25, width: 25 }} source={require('../images/add_student_1.png')} />
+                </TouchableOpacity>
+            ),
         };
     };
 
@@ -135,6 +147,13 @@ export default class SectionWiseStudents extends Component {
     //     { title: 'Title3', data: ['item5', 'item6'] },
     // ]}
 
+    actionEdit = (item) => {
+        this.props.navigation.navigate('AddStudent', {
+            student: item,
+            status: 'edit'
+        });
+    }
+
     render() {
         return (
             <View
@@ -144,7 +163,9 @@ export default class SectionWiseStudents extends Component {
                 <SectionList renderItem=
                     {({ item, index }) => {
                         return (
-                            <SectionRows item={item} index={index}>
+                            <SectionRows
+                                onPress={this.actionEdit}
+                                item={item} index={index}>
                             </SectionRows>
                         );
                     }
@@ -157,11 +178,13 @@ export default class SectionWiseStudents extends Component {
                         );
 
                     }}
-                // ItemSeparatorComponent=
-                // {() =>
-                //     <View style={{ height: 1, backgroundColor: 'grey' }}>
-                //     </View>
-                // }
+                    // ItemSeparatorComponent=
+                    // {() =>
+                    //     <View style={{ height: 1, backgroundColor: 'grey' }}>
+                    //     </View>
+                    // }
+
+                    keyExtractor={(item, index) => item + index}
                 >
                 </SectionList>
 
@@ -193,18 +216,27 @@ class SectionRows extends Component {
                 <Text style=
                     {styles.studentRowStyle}>{GlobalStrings.email}  : {this.props.item.stRefEmail}</Text>
 
-                <TouchableHighlight
+                <TouchableOpacity
+                    activeOpacity={0.8}
                     style={{
+                        padding: 10,
                         position: 'absolute',
-                        right: 0,
-                        bottom:0
+                        top: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'
                     }}
+
+                    onPress={() => this.props.onPress(this.props.item)}
                 >
-                    <Image style={{ height: 25, width: 25 }} source={require('../images/add_student_1.png')} />
-                </TouchableHighlight>
+
+                    <Image style={{ height: 20, width: 20 }} source={require('../images/edit.png')} />
+                </TouchableOpacity>
             </View>
         );
     }
+
+    actionEdit = (item) => {
+        this.props.navigation.navigate('AddStudent');
+    }
+
 }
 
 class SectionHeaderClass extends Component {
@@ -216,7 +248,7 @@ class SectionHeaderClass extends Component {
                 justifyContent: 'center',
                 backgroundColor: GlobalColors.gray.default,
                 padding: 5,
-                margin: 5
+                margin: 10
             }}>
                 <Text style=
                     {{
@@ -290,6 +322,6 @@ const styles = StyleSheet.create({
 //                 }
 //                  >
 //                 </SectionList>
-                
+
 //             </View>
 //         );

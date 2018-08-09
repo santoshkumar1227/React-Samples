@@ -9,6 +9,7 @@ export default GlobalStrings = {
     add: "Add",
     addStudent: "Add Student",
     students: "Students",
+    sectionStudents: "Class Wise Students",
     selectGender: "Select Gender",
     enterEmail: "Enter email",
     selectDate: "Select Date",
@@ -25,9 +26,11 @@ export default GlobalStrings = {
 
     //placeHolders
     email: "Email",
+    studentId: "Student Id",
     dob: "Date Of Birth",
     gender: "Gender",
     class: "Class",
     phoneNo: "Phone Number",
-    name: "Name"
+    name: "Name",
+    address:"Address"
 }

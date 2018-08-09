@@ -11,6 +11,7 @@ import {
 import SplashScreen from './components/SplashScreen';
 import AllStudents from './components/AllStudents';
 import LoginSCreen from './components/LoginScreen';
+import SectionWiseStudents from './components/SectionWiseStudents';
 
 const App = createStackNavigator({
   Splash: {
@@ -24,17 +25,15 @@ const App = createStackNavigator({
   },
   AddStudent: {
     screen: AddStudent,
-    // header: {
-    //   left: null,
-    // }
   },
   AllStudents: {
     screen: AllStudents,
     header: {
       left: null,
     }
+  }, SectionStudents: {
+    screen: SectionWiseStudents,
   },
-  //Profile: { screen: ProfileScreen },
 });
 
 AppRegistry.registerComponent(appName, () => App);

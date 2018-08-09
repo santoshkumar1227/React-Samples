@@ -69,9 +69,10 @@ export default class AddStudent extends Component {
             id: '',
             name: '',
             phoneno: '',
-            className: '',
+            className: 'LKG',
             gender: '',
             email: '',
+            address: '',
             randomId: realm
                 ? realm.objects(STUDENT_SCHEMA).length
                 : 0,
@@ -127,6 +128,7 @@ export default class AddStudent extends Component {
                 email: studentToEdit.stRefEmail,
                 randomId: studentToEdit.studentId,
                 date_in: studentToEdit.stDOJ,
+                address: studentToEdit.stAddress,
                 radio_props: radio_props[selectedIndex].selected = true
             });
         }
@@ -152,7 +154,8 @@ export default class AddStudent extends Component {
                                     stClass: this.state.className,
                                     stRefEmail: this.state.email,
                                     stGender: this.state.gender,
-                                    stDOJ: this.state.date_in
+                                    stDOJ: this.state.date_in,
+                                    stAddress: this.state.address
                                 }
 
                                 this.setState({
@@ -259,7 +262,7 @@ export default class AddStudent extends Component {
 
                         <View style={GlobalStyles.circle}>
                             <Image
-                                style={{ height: 75, width: 75 }}
+                                style={{ height: 65, width: 65, borderRadius: 65 / 2 }}
                                 resizeMode='contain'
                                 // source={this.state.avatarSource}
                                 source={
@@ -450,6 +453,15 @@ export default class AddStudent extends Component {
                                 radioButtons={radio_props}
                                 onPress={this.onPress} />
                         </View>
+
+                        <TextInput
+                            ref="address"
+                            value={this.state.address}
+                            returnKeyType="done"
+                            style={[GlobalStyles.textInput, GlobalStyles.textInputAddress]}
+                            placeholder={GlobalStrings.address}
+                            onChangeText={(address) => this.setState({ address })}
+                        />
 
                         <TouchableOpacity
                             activeOpacity={0.8}

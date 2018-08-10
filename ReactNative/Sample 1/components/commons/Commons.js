@@ -49,5 +49,12 @@ export const isAndroid = () => {
     } else {
         return false;
     }
+}
 
+export const areTwoStringsEqual = (firstString, SecondString) => {
+    if (firstString == SecondString) {
+        return true;
+    } else {
+        return false;
+    }
 }

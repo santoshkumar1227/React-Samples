@@ -6,6 +6,7 @@ Realm database Schemas
 */
 import Realm from 'realm';
 export const STUDENT_SCHEMA = "Student";
+export const ADMIN_SCHEMA = "Admin";
 //export const TODO_SCHEMA = "Todo";
 // Define your models and their properties
 // export const TodoSchema = {
@@ -32,10 +33,22 @@ export const StudentSchema = {
     }
 };
 
+export const AdminSchema = {
+    name: ADMIN_SCHEMA,
+    primaryKey: 'adminUserName',
+    properties: {
+        adminId: 'int',
+        adminName: 'string',
+        adminUserName: 'string',
+        adminEmail: 'string',
+        adminPassword: 'string'
+    }
+};
+
 const databaseOptions = {
     path: 'College.realm',
-    schema: [StudentSchema], //Must be an array
-    schemaVersion: 3, //optional  
+    schema: [StudentSchema, AdminSchema], //Must be an array
+    schemaVersion: 4, //optional  
     migration: (oldRealm, newRealm) => {
         // only apply this change if upgrading to schemaVersion 1
         if (oldRealm.schemaVersion < 3) {
@@ -52,12 +65,22 @@ const databaseOptions = {
     }
 };
 
-//functions for TodoLists
 export const insertNewstudent = newStudent => new Promise((resolve, reject) => {
     Realm.open(databaseOptions).then(realm => {
         realm.write(() => {
             realm.create(STUDENT_SCHEMA, newStudent);
             resolve(newStudent);
+        });
+    }).catch((error) => reject(error));
+});
+
+
+export const insertNewAdmin = newAdmin => new Promise((resolve, reject) => {
+    Realm.open(databaseOptions).then(realm => {
+        realm.write(() => {
+            newAdmin.adminId = realm.objects(ADMIN_SCHEMA).length;
+            realm.create(ADMIN_SCHEMA, newAdmin);
+            resolve(newAdmin);
         });
     }).catch((error) => reject(error));
 });

@@ -15,14 +15,21 @@ export default GlobalStrings = {
     selectDate: "Select Date",
     login: "Login",
     enterUserName: "Enter Username",
+    enterName: "Enter Name",
     enterPassword: "Enter Password",
+    enterConfPassword: "Enter ConfirmPassword",
+    passwordNotMatching: "Passwords Not matching",
     invalidcredi: "Please enter valid credintials",
     deleteStudent: "Delete Student",
     deleteStudentConf: "Do you want to delete",
     studentDeleteSuccess: "Student Deleted Successfully",
     studentUpdatesuccess: "Student Updated Successfully",
     studentAddedsuccess: "Student Added Successfully",
+    adminAddedsuccess: "Admin Added Successfully",
     selectClass: "Select Class",
+    doYouwanntToLogout: "Do You want to logout ?",
+    adminRegister: "Admin Registration",
+    registerAdmin:'Register Admin',
 
     //placeHolders
     email: "Email",
@@ -32,5 +39,8 @@ export default GlobalStrings = {
     class: "Class",
     phoneNo: "Phone Number",
     name: "Name",
-    address:"Address"
+    address: "Address",
+    cpwd: "Confirm Password",
+    pwd: "Password",
+    uname: "Username"
 }

@@ -160,6 +160,7 @@ export default class SectionWiseStudents extends Component {
                 style={{
                     flex: 1
                 }}>
+                <CustomStatusBar />
                 <SectionList renderItem=
                     {({ item, index }) => {
                         return (

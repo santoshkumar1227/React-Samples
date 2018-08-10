@@ -248,6 +248,7 @@ export default class AddStudent extends Component {
         return (
             <ScrollView style={{ backgroundColor: GlobalColors.white.default }}>
                 <View style={GlobalStyles.container}>
+                    <CustomStatusBar />
                     <StatusBar
                         backgroundColor={GlobalColors.blue.dark}
                         barStyle="dark-content"

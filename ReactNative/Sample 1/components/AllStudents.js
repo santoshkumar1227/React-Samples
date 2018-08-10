@@ -41,7 +41,7 @@ export default class AllStudents extends Component {
           onPress={() =>
             Alert.alert(
               "",
-              "Do You want to logout ",
+              GlobalStrings.doYouwanntToLogout,
               [
                 {
                   text: 'NO', onPress: () => {
@@ -217,10 +217,7 @@ export default class AllStudents extends Component {
   render() {
     return (
       <View style={GlobalStyles.container}>
-        <StatusBar
-          backgroundColor={GlobalColors.blue.dark}
-          barStyle="light-content"
-        />
+        <CustomStatusBar />
 
         <FlatList
           refreshControl={

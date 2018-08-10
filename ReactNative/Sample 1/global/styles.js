@@ -31,13 +31,15 @@ export default GlobalStyles = {
         color: GlobalColors.black.default
     }, textInputAddress: {
         height: 100,
-        textAlignVertical: 'top'
+        textAlignVertical: 'top',
+        width: '100%',
+        height: '100%',
     }, textInputPassword: {
         secureTextEntry: true
     },
     buttonStyle: {
         fontWeight: 'bold',
-        fontSize: 16,
+        fontSize: 20,
         height: 40,
         justifyContent: 'center',
         alignItems: 'center',
@@ -46,11 +48,10 @@ export default GlobalStyles = {
         width: '80%',
         borderWidth: 1,
         padding: 5,
-        marginTop: 20,
         marginBottom: 50,
         borderRadius: 5,
+        borderColor: GlobalColors.blue.light,
         backgroundColor: GlobalColors.blue.dark,
-        borderColor: GlobalColors.black.absolute
     }, buttonUndefinedwidht: {
         width: undefined,
         marginLeft: 15,
@@ -60,6 +61,7 @@ export default GlobalStyles = {
     }, buttonTextStyle: {
         color: GlobalColors.white.default,
         fontSize: 16,
+        fontWeight: 'bold'
     },
     toolBarStyle: {
         color: 'white',
@@ -133,5 +135,19 @@ export default GlobalStyles = {
         paddingLeft: 20,
         paddingTop: 12,
         paddingBottom: 12,
+    }, textInputIconParent: {
+        paddingLeft: 10,
+        paddingRight: 10,
+        alignItems: 'center',
+        width: '80%',
+        borderColor: GlobalColors.black.default,
+        borderWidth: 1,
+        borderRadius: 5,
+        height: 40,
+        flexDirection: 'row',
+        marginBottom: 20,
+    }, textInputWithIcon: {
+        paddingLeft: 10,
+        width: "100%"
     }
 };

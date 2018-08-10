@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Image, Text, View } from 'react-native'
 import GLobalSyles from '../global/styles'
 import GLobalColors from '../global/colors'
-import {navigateAfterFinish} from '../components/commons/Commons'
+import { navigateAfterFinish } from '../components/commons/Commons'
 
 export default class SplashScreen extends Component {
     static navigationOptions = {
@@ -31,6 +31,7 @@ export default class SplashScreen extends Component {
     render() {
         return (
             <View style={[GLobalSyles.container]}>
+                <CustomStatusBar />
                 <View style={GLobalSyles.circle}>
                     <Image
                         style={{ height: 75, width: 75 }}
@@ -39,11 +40,11 @@ export default class SplashScreen extends Component {
                 </View>
 
                 {
-                    this.state.nextScreen ? navigateAfterFinish('Login',this.props) : null
+                    this.state.nextScreen ? navigateAfterFinish('Login', this.props) : null
                 }
             </View>
         );
     }
 
-   
+
 }
